@@ -1,0 +1,176 @@
+.imageGallery {
+  background: #efedfc;
+  padding: 2.5rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.imageGallery__contentWraps.imageGridDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.imageGalley__imageGridDisplay__imageGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+  max-height: 33rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: 0;
+}
+
+.imageGalley__imageGridDisplay__imageGrid::-webkit-scrollbar {
+  display: none;
+}
+
+.imageGalley__imageGridDisplay__imageGrid__gridItems {
+  cursor: pointer;
+  width: 7.5rem;
+  height: 7.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f5f5f5;
+  background: #f5f5f5;
+  border-radius: 5px;
+  transition: background 0.2s ease, border 0.2s ease, font-weight 0.15s ease;
+}
+
+.imageGalley__imageGridDisplay__imageGrid__gridItems:hover {
+  background: #ffffff;
+  font-weight: 600;
+  transition: background 0.25s ease, border 0.25s ease, font-weight 0.2s ease;
+}
+
+.imageGalley__imageGridDisplay__imageGrid__gridItems.active {
+  border: 1px solid hsl(210, 4%, 18%, 0.35);
+  background: #ffffff;
+  font-weight: 700;
+}
+
+.imageGalley__imageGridDisplay__paginationWrap {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.imageGalley__imageGridDisplay__paginationWrap__paginationBtns {
+  width: 2.25rem;
+  height: 2.25rem;
+  background: hsl(246, 87%, 73%, 0.75);
+  border-radius: 50%;
+  margin-right: 10px;
+  color: #ffffff;
+  border: 1px solid;
+}
+
+.imageGalley__imageGridDisplay__paginationWrap__paginationBtns.active {
+  background: #ffffff;
+  color: #8c80f6;
+  border: 1px solid #806af6;
+  font-weight: 600;
+}
+
+.previousBtn {
+  font-size: 1.35rem;
+}
+
+.nextBtn {
+  font-size: 1.35rem;
+}
+
+.imageGallery__contentWraps.imageSelectDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imageGallery__imageSelectDisplay__selectedImage {
+  width: 100%;
+  background: #ffffff;
+  aspect-ratio: 3/2;
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.imageGallery__imageSelectDisplay__selectedImage__imageActionBtns {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  padding: 0 5px;
+}
+
+.imageGallery__imageSelectDisplay__selectedImage__imageActionBtns button {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 50%;
+  font-size: 17px;
+}
+
+.imageGallery__imageSelectDisplay__selectedImage__imageActionBtns__closeBtn {
+  margin-left: 0.5rem;
+}
+
+.imageGallery__imageSelectDisplay__selectedImage__imageWrap {
+  display: block;
+  margin: 1.5rem;
+  width: calc(100% - 3rem);
+  height: calc(100% - 3rem);
+  background: #efedfc;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-size: 4rem;
+}
+
+.imageGallery__imageSelectDisplay__selectedImage__noImage {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.imageGallery__imageSelectDisplay__selectedImage__noImage__noImgIcon {
+  font-size: 6rem;
+  margin-bottom: 0.5rem;
+  color: hsl(246, 87%, 73%, 0.25);
+}
+
+.imageGallery__imageSelectDisplay__selectedImage__noImage__noImageMsg {
+  font-size: 1rem;
+  color: hsl(246, 87%, 73%, 0.5);
+}
+
+.imageGallery__imageSelectDisplay__filterActionBtns {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+.imageGallery__imageSelectDisplay__filterActionBtns button {
+  background: #8c80f6;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 0.625em 1.25em;
+  font-weight: 500;
+  height: 3rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.imageGallery__imageSelectDisplay__filterActionBtns button:not(:disabled):hover {
+  background: #806af6;
+  transform: translateY(-4px);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.imageGallery__imageSelectDisplay__imageActionBtns__colorMethodBtn {
+  margin-top: 1rem;
+}

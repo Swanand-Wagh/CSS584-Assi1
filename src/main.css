@@ -1,0 +1,140 @@
+html,
+html:focus-within {
+  font-size: 100%;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: "Lexend", sans-serif;
+  color: #1e1e1e;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  background: #ffffff;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin-block: 0;
+}
+
+p {
+  margin-block: 0;
+  color: inherit;
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+ul,
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font: inherit;
+  background-color: transparent;
+  color: inherit;
+}
+
+button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+@media screen and (min-width: 100em) {
+  html,
+  html:focus-within {
+    font-size: 125%;
+  }
+}
+
+@media screen and (min-width: 120em) {
+  html,
+  html:focus-within {
+    font-size: 150%;
+  }
+}
+
+@media screen and (min-width: 156.25em) {
+  html,
+  html:focus-within {
+    font-size: 180%;
+  }
+}
+
+@media screen and (min-width: 200em) {
+  html,
+  html:focus-within {
+    font-size: 300%;
+  }
+}
+
+@media screen and (max-width: 38.74875em) {
+  html,
+  html:focus-within {
+    font-size: 95%;
+  }
+}
+
+@media screen and (max-width: 21.87375) {
+  html,
+  html:focus-within {
+    font-size: 90%;
+  }
+}

@@ -1,0 +1,59 @@
+.topHeader {
+  padding: 0.625rem 0;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  align-items: center;
+  display: flex;
+}
+
+.topHeader__wrapper {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  max-width: 90rem;
+}
+
+.topHeader__wrapper__title {
+  display: flex;
+  align-items: center;
+  color: #ee7856;
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.topHeader__wrapper__title span {
+  font-weight: 600;
+  margin-left: 3px;
+}
+
+.topHeader__contentWrap__githubLink {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 11rem;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  padding: 0.625em 1em;
+  font-weight: 500;
+  height: 2.75rem;
+  color: #ffffff;
+  background: #2b2d2f;
+  transition: transform 0.2s ease;
+}
+
+.topHeader__contentWrap__githubLink:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease;
+}
+
+.topHeader__contentWrap__githubLink__githubIcon {
+  font-size: 1.25rem;
+  margin-right: 10px;
+}
