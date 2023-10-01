@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { GrPowerReset } from "react-icons/gr";
 import { IoClose } from "react-icons/io5";
 import { RiImageAddFill } from "react-icons/ri";
@@ -13,7 +13,7 @@ export const ImageFilters = ({ currentImg, setCurrentImage }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <div className="imageGallery__contentWraps imageSelectDisplay">
         <div className="imageGallery__imageSelectDisplay__selectedImage">
           {currentImg && (
@@ -64,6 +64,6 @@ export const ImageFilters = ({ currentImg, setCurrentImage }) => {
           </button>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
