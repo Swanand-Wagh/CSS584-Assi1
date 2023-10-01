@@ -17,7 +17,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 1rem;
-  max-height: 33rem;
+  max-height: 35rem;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: 0;
