@@ -20,7 +20,7 @@
   justify-content: flex-start;
   gap: 1rem;
   max-width: 39rem;
-  height: 30rem;
+  height: 33rem;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: 0;
@@ -33,7 +33,7 @@
 .imageGalley__imageGridDisplay__imageGrid__gridItems {
   cursor: pointer;
   width: 9rem;
-  height: 6rem;
+  height: 7rem;
   display: flex;
   align-items: center;
   justify-content: center;
