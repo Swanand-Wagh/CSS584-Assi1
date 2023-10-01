@@ -28,9 +28,10 @@
 }
 
 .imageGalley__imageGridDisplay__imageGrid__gridItems {
+  padding: 0 0.35rem;
   cursor: pointer;
-  width: 7.5rem;
-  height: 7.5rem;
+  width: 9rem;
+  height: 6.15rem;
   display: flex;
   align-items: center;
   justify-content: center;
