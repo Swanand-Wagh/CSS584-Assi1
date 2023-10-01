@@ -8,7 +8,7 @@
   display: flex;
 }
 
-.topHeader__wrapper {
+.topHeader__contentWrap {
   width: 100%;
   align-items: center;
   display: flex;
@@ -19,7 +19,7 @@
   max-width: 90rem;
 }
 
-.topHeader__wrapper__title {
+.topHeader__contentWrap__appTitle {
   display: flex;
   align-items: center;
   color: #ee7856;
@@ -28,7 +28,7 @@
   letter-spacing: -0.02em;
 }
 
-.topHeader__wrapper__title span {
+.topHeader__contentWrap__appTitle span {
   font-weight: 600;
   margin-left: 3px;
 }
