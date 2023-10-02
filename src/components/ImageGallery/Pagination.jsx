@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
 const totalItems = 100;
-const itemsPerPage = 16;
+const itemsPerPage = 20;
 
 const totalPages = Math.ceil(totalItems / itemsPerPage);
 

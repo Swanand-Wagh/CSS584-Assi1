@@ -20,7 +20,7 @@
   justify-content: flex-start;
   gap: 1rem;
   max-width: 39rem;
-  height: 33rem;
+  height: 34rem;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: 0;
@@ -33,7 +33,7 @@
 .imageGalley__imageGridDisplay__imageGrid__gridItems {
   cursor: pointer;
   width: 9rem;
-  height: 7rem;
+  height: 6rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,8 +185,7 @@
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.imageGallery__imageSelectDisplay__filterActionBtns
-  button:not(:disabled):hover {
+.imageGallery__imageSelectDisplay__filterActionBtns button:not(:disabled):hover {
   background: #806af6;
   transform: translateY(-4px);
   transition: transform 0.3s ease, background 0.3s ease;
