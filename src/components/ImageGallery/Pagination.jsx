@@ -45,12 +45,12 @@ export const Pagination = ({ currentPage, setCurrentPage }) => {
 
   return (
     <div className="imageGalley__imageGridDisplay__paginationWrap">
-      {/* <button
+      <button
         onClick={() => setCurrentPage(1)}
         className="imageGalley__imageGridDisplay__paginationWrap__paginationBtns startBtn"
       >
         Start
-      </button> */}
+      </button>
       <button
         disabled={currentPage === 1}
         onClick={() => setCurrentPage((current) => current - 1)}
@@ -58,6 +58,7 @@ export const Pagination = ({ currentPage, setCurrentPage }) => {
       >
         <MdNavigateBefore />
       </button>
+
       {pageArray.slice(paginationSlice.startIndex, paginationSlice.sliceItemIndex).map((page, idx) => {
         return (
           <button
@@ -71,6 +72,7 @@ export const Pagination = ({ currentPage, setCurrentPage }) => {
           </button>
         );
       })}
+
       <button
         disabled={currentPage === totalPages}
         onClick={() => setCurrentPage((current) => current + 1)}
@@ -78,12 +80,12 @@ export const Pagination = ({ currentPage, setCurrentPage }) => {
       >
         <MdNavigateNext />
       </button>
-      {/* <button
+      <button
         onClick={() => setCurrentPage(totalPages)}
         className="imageGalley__imageGridDisplay__paginationWrap__paginationBtns lastBtn"
       >
         Last
-      </button> */}
+      </button>
     </div>
   );
 };
