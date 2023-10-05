@@ -1,10 +1,10 @@
-const Jimp = require('jimp');
+import Jimp from 'jimp';
 
-function calculateIntensity(red, green, blue) {
+const calculateIntensity = (red, green, blue) => {
   return Math.floor(0.299 * red + 0.587 * green + 0.114 * blue);
-}
+};
 
-function createHistogram(image) {
+const createHistogram = (image) => {
   const intensityBins = new Array(25).fill(0);
 
   image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
@@ -19,9 +19,9 @@ function createHistogram(image) {
   });
 
   return intensityBins;
-}
+};
 
-async function intensityMethodFilterAlgo() {
+export const intensityMethodFilterAlgo = async () => {
   let imageSizes = [];
   let histograms = [];
 
@@ -32,7 +32,7 @@ async function intensityMethodFilterAlgo() {
 
   // Loop through all images
   for (let i = 1; i <= 100; i++) {
-    const imageFilePath = `./images/${i}.jpg`;
+    const imageFilePath = `./constants/images/${i}.jpg`;
     await Jimp.read(imageFilePath)
       .then((image) => {
         const intensityBins = createHistogram(image);
@@ -65,6 +65,4 @@ async function intensityMethodFilterAlgo() {
 
   // Sort distances
   console.log(minDistances);
-}
-
-intensityMethodFilterAlgo();
+};

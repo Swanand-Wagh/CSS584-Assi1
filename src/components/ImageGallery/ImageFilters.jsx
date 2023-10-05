@@ -2,10 +2,12 @@ import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
 import { RiImageAddFill } from 'react-icons/ri';
 
+import { intensityMethodFilterAlgo } from '../../methods/IntensityMethod';
+
 export const ImageFilters = ({ currentImg, setCurrentImage }) => {
-  const intensityMethodFilterAlgo = () => {
-    return;
-  };
+  // const intensityMethodFilterAlgo = () => {
+  //   return;
+  // };
 
   const colorCodeMethodFilterAlgo = () => {
     return;
