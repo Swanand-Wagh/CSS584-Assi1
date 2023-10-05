@@ -1,5 +1,5 @@
-import { HeaderBar } from "./components/HeaderBar";
-import { ImageGallery } from "./components/ImageGallery";
+import { HeaderBar } from './components/HeaderBar';
+import { ImageGallery } from './components/ImageGallery';
 
 export const App = () => {
   return (

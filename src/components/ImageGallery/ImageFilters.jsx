@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { GrPowerReset } from "react-icons/gr";
-import { IoClose } from "react-icons/io5";
-import { RiImageAddFill } from "react-icons/ri";
+import { GrPowerReset } from 'react-icons/gr';
+import { IoClose } from 'react-icons/io5';
+import { RiImageAddFill } from 'react-icons/ri';
 
 export const ImageFilters = ({ currentImg, setCurrentImage }) => {
   const intensityMethodFilterAlgo = () => {
@@ -22,7 +22,7 @@ export const ImageFilters = ({ currentImg, setCurrentImage }) => {
                 <GrPowerReset />
               </button>
               <button
-                onClick={() => setCurrentImage("")}
+                onClick={() => setCurrentImage('')}
                 className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns__closeBtn"
               >
                 <IoClose />
@@ -30,7 +30,7 @@ export const ImageFilters = ({ currentImg, setCurrentImage }) => {
             </div>
           )}
           <div
-            style={{ background: currentImg ? "transparent" : "#efedfc" }}
+            style={{ background: currentImg ? 'transparent' : '#efedfc' }}
             className="imageGallery__imageSelectDisplay__selectedImage__imageWrap"
           >
             {currentImg ? (

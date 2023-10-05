@@ -1,4 +1,4 @@
-import "../styles/headerBar.css";
+import '../styles/headerBar.css';
 
 export const HeaderBar = () => {
   return (

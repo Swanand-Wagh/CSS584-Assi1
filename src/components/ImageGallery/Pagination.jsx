@@ -1,5 +1,5 @@
-import React from "react";
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import React from 'react';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 
 const totalItems = 100;
 const itemsPerPage = 20;
@@ -58,21 +58,19 @@ export const Pagination = ({ currentPage, setCurrentPage }) => {
       >
         <MdNavigateBefore />
       </button>
-      {pageArray
-        .slice(paginationSlice.startIndex, paginationSlice.sliceItemIndex)
-        .map((page, idx) => {
-          return (
-            <button
-              key={idx}
-              onClick={() => setCurrentPage(page)}
-              className={`imageGalley__imageGridDisplay__paginationWrap__paginationBtns currentPageBtn${
-                currentPage === page ? " active" : ""
-              }`}
-            >
-              {page}
-            </button>
-          );
-        })}
+      {pageArray.slice(paginationSlice.startIndex, paginationSlice.sliceItemIndex).map((page, idx) => {
+        return (
+          <button
+            key={idx}
+            onClick={() => setCurrentPage(page)}
+            className={`imageGalley__imageGridDisplay__paginationWrap__paginationBtns currentPageBtn${
+              currentPage === page ? ' active' : ''
+            }`}
+          >
+            {page}
+          </button>
+        );
+      })}
       <button
         disabled={currentPage === totalPages}
         onClick={() => setCurrentPage((current) => current + 1)}
