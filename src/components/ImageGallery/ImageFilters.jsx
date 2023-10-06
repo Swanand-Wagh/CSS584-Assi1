@@ -1,19 +1,10 @@
-import { GrPowerReset } from "react-icons/gr";
-import { IoClose } from "react-icons/io5";
-import { RiImageAddFill } from "react-icons/ri";
-import {
-  intensityDistances,
-  colorCodeDistances,
-  getShortestDistancesIndexes,
-} from "../../methods/Main";
-import { imageArray } from "../../constants/ImageList";
+import { GrPowerReset } from 'react-icons/gr';
+import { IoClose } from 'react-icons/io5';
+import { RiImageAddFill } from 'react-icons/ri';
+import { intensityDistances, colorCodeDistances, getShortestDistancesIndexes } from '../../methods/Main';
+import { imageArray } from '../../constants/ImageList';
 
-export const ImageFilters = ({
-  currentImg,
-  setCurrentImage,
-  imagesList,
-  setImagesList,
-}) => {
+export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImagesList }) => {
   const setNewList = (setState, _modifiedList) => {
     const newList = [];
     for (let i = 0; i < _modifiedList.length; ++i) {
@@ -23,22 +14,19 @@ export const ImageFilters = ({
     setState(newList);
   };
 
-  const filterMethod = (_currentImg, methodBy) => {
+  const filterMethod = async (_currentImg, methodBy) => {
     if (_currentImg === -1) {
       return;
     }
 
     const distances =
-      methodBy === "intensity"
-        ? intensityDistances
-        : methodBy === "colorCode"
-        ? colorCodeDistances
+      methodBy === 'intensity'
+        ? await intensityDistances()
+        : methodBy === 'colorCode'
+        ? await colorCodeDistances()
         : null;
 
-    const modifiedList =
-      distances === null
-        ? imageArray
-        : getShortestDistancesIndexes(distances, _currentImg);
+    const modifiedList = distances === null ? imageArray : getShortestDistancesIndexes(distances, _currentImg);
 
     setNewList(setImagesList, modifiedList);
   };
@@ -64,7 +52,7 @@ export const ImageFilters = ({
         )}
 
         <div
-          style={{ background: currentImg !== -1 ? "transparent" : "#efedfc" }}
+          style={{ background: currentImg !== -1 ? 'transparent' : '#efedfc' }}
           className="imageGallery__imageSelectDisplay__selectedImage__imageWrap"
         >
           {currentImg !== -1 ? (
@@ -85,14 +73,14 @@ export const ImageFilters = ({
       <div className="imageGallery__imageSelectDisplay__filterActionBtns">
         <button
           disabled={currentImg == -1}
-          onClick={() => filterMethod(currentImg, "intensity")}
+          onClick={() => filterMethod(currentImg, 'intensity')}
           className="imageGallery__imageSelectDisplay__imageActionBtns__intensityBtn"
         >
           Retrieve by Intensity Method
         </button>
         <button
           disabled={currentImg == -1}
-          onClick={() => filterMethod(currentImg, "colorCode")}
+          onClick={() => filterMethod(currentImg, 'colorCode')}
           className="imageGallery__imageSelectDisplay__imageActionBtns__colorMethodBtn"
         >
           Retrieve by Color Code Method
