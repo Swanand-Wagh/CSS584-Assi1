@@ -58,6 +58,12 @@
   object-fit: cover;
 }
 
+.imageGalley__imageGridDisplay__imageGrid__gridItems.imgSkeleton {
+  background-color: hsl(246, 87%, 73%, 0.35);
+  animation: skeletonLoading 0.6s linear infinite alternate-reverse;
+  opacity: 1;
+}
+
 .imageGalley__imageGridDisplay__paginationWrap {
   margin-top: 2rem;
   display: flex;
@@ -193,4 +199,13 @@
 
 .imageGallery__imageSelectDisplay__imageActionBtns__colorMethodBtn {
   margin-top: 1rem;
+}
+
+@keyframes skeletonLoading {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 0.4;
+  }
 }

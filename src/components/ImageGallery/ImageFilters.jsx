@@ -19,6 +19,9 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
       return;
     }
 
+    setImagesList(null);
+    setCurrentImage(-1);
+
     const distances =
       methodBy === 'intensity'
         ? await intensityDistances()
@@ -29,6 +32,7 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
     const modifiedList = distances === null ? imageArray : getShortestDistancesIndexes(distances, _currentImg);
 
     setNewList(setImagesList, modifiedList);
+    setCurrentImage(_currentImg);
   };
 
   return (
@@ -72,14 +76,14 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
 
       <div className="imageGallery__imageSelectDisplay__filterActionBtns">
         <button
-          disabled={currentImg == -1}
+          disabled={currentImg === -1 || imagesList === null}
           onClick={() => filterMethod(currentImg, 'intensity')}
           className="imageGallery__imageSelectDisplay__imageActionBtns__intensityBtn"
         >
           Retrieve by Intensity Method
         </button>
         <button
-          disabled={currentImg == -1}
+          disabled={currentImg === -1 || imagesList === null}
           onClick={() => filterMethod(currentImg, 'colorCode')}
           className="imageGallery__imageSelectDisplay__imageActionBtns__colorMethodBtn"
         >
