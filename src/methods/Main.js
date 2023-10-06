@@ -1,5 +1,5 @@
-import Jimp from "jimp";
-import { imageArray } from "../constants/ImageList";
+import Jimp from 'jimp';
+import { imageArray } from '../constants/ImageList';
 
 function calculateIntensity(red, green, blue) {
   return Math.floor(0.299 * red + 0.587 * green + 0.114 * blue);
@@ -68,9 +68,7 @@ async function processImageUsingIntensity(imageFilePath) {
 }
 
 function calculateDistances(imagesData) {
-  const distances = Array.from({ length: imagesData.length }, () =>
-    Array(imagesData.length).fill(0)
-  );
+  const distances = Array.from({ length: imagesData.length }, () => Array(imagesData.length).fill(0));
 
   for (let i = 0; i < imagesData.length; i++) {
     for (let j = i + 1; j < imagesData.length; j++) {
@@ -118,8 +116,8 @@ async function getIntensityDistanceMatix() {
   return calculateDistances(imagesData);
 }
 
-export const intensityDistances = await getIntensityDistanceMatix();
-export const colorCodeDistances = await getColorCodeDistanceMatix();
+export const intensityDistances = async () => await getIntensityDistanceMatix();
+export const colorCodeDistances = async () => await getColorCodeDistanceMatix();
 
 export function getShortestDistancesIndexes(distances, imageIndex) {
   const arrayObjects = distances[imageIndex].map((value, index) => ({
