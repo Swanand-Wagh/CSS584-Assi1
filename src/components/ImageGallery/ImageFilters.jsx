@@ -2,13 +2,10 @@ import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
 import { RiImageAddFill } from 'react-icons/ri';
 
-import { intensityMethodFilterAlgo } from '../../methods/IntensityMethod';
+// import { IntensityMethod } from '../../methods/IntensityMethod';
+// import { intensityDistances, colorCodeDistances, getShortestDistancesIndexes } from '../../methods/Main';
 
 export const ImageFilters = ({ currentImg, setCurrentImage }) => {
-  // const intensityMethodFilterAlgo = () => {
-  //   return;
-  // };
-
   const colorCodeMethodFilterAlgo = () => {
     return;
   };
@@ -52,7 +49,7 @@ export const ImageFilters = ({ currentImg, setCurrentImage }) => {
       <div className="imageGallery__imageSelectDisplay__filterActionBtns">
         <button
           disabled={!currentImg}
-          onClick={intensityMethodFilterAlgo}
+          // onClick={() => console.log(getShortestDistancesIndexes(intensityDistances, 1))}
           className="imageGallery__imageSelectDisplay__imageActionBtns__intensityBtn"
         >
           Retrieve by Intensity Method
