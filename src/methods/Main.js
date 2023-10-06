@@ -91,7 +91,7 @@ async function getColorCodeDistanceMatix() {
   const imagesData = [];
   // Load image data
   for (let i = 1; i <= 100; i++) {
-    const imageFilePath = `../constants/images/${i}.jpg`;
+    const imageFilePath = `https://raw.githubusercontent.com/Swanand-Wagh/CSS584-Assi1/main/src/constants/images/${i}.jpg`;
     const imageData = await processImageUsingColorCode(imageFilePath);
     if (imageData) {
       imagesData.push(imageData);
@@ -104,7 +104,8 @@ async function getIntensityDistanceMatix() {
   const imagesData = [];
   // Load image data
   for (let i = 1; i <= 100; i++) {
-    const imageFilePath = `../constants/images/${i}.jpg`;
+    // const imageFilePath = `../constants/images/${i}.jpg`;
+    const imageFilePath = `https://raw.githubusercontent.com/Swanand-Wagh/CSS584-Assi1/main/src/constants/images/${i}.jpg`;
     const imageData = await processImageUsingIntensity(imageFilePath);
     if (imageData) {
       imagesData.push(imageData);
