@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import '../../styles/imageGallery.css';
-import { ImageFilters } from './ImageFilters';
-import { ImageGridDisplay } from './ImageGridDisplay';
-import { imageArray } from '../../constants/ImageList';
+import { useState } from "react";
+import "../../styles/imageGallery.css";
+import { ImageFilters } from "./ImageFilters";
+import { ImageGridDisplay } from "./ImageGridDisplay";
+import { imageArray } from "../../constants/ImageList";
 
 export const ImageGallery = () => {
-  const [currentImg, setCurrentImage] = useState(imageArray[0]);
+  const [currentImg, setCurrentImage] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [imagesList, setImagesList] = useState(imageArray);
 
   return (
     <>
@@ -16,8 +17,14 @@ export const ImageGallery = () => {
           setCurrentImage={setCurrentImage}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          imagesList={imagesList}
         />
-        <ImageFilters currentImg={currentImg} setCurrentImage={setCurrentImage} />
+        <ImageFilters
+          currentImg={currentImg}
+          setCurrentImage={setCurrentImage}
+          imagesList={imagesList}
+          setImagesList={setImagesList}
+        />
       </section>
     </>
   );

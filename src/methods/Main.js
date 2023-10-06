@@ -1,4 +1,5 @@
-import Jimp from 'jimp';
+import Jimp from "jimp";
+import { imageArray } from "../constants/ImageList";
 
 function calculateIntensity(red, green, blue) {
   return Math.floor(0.299 * red + 0.587 * green + 0.114 * blue);
@@ -67,7 +68,9 @@ async function processImageUsingIntensity(imageFilePath) {
 }
 
 function calculateDistances(imagesData) {
-  const distances = Array.from({ length: imagesData.length }, () => Array(imagesData.length).fill(0));
+  const distances = Array.from({ length: imagesData.length }, () =>
+    Array(imagesData.length).fill(0)
+  );
 
   for (let i = 0; i < imagesData.length; i++) {
     for (let j = i + 1; j < imagesData.length; j++) {
@@ -91,7 +94,8 @@ async function getColorCodeDistanceMatix() {
   const imagesData = [];
   // Load image data
   for (let i = 1; i <= 100; i++) {
-    const imageFilePath = `https://raw.githubusercontent.com/Swanand-Wagh/CSS584-Assi1/main/src/constants/images/${i}.jpg`;
+    const imageFilePath = imageArray[i - 1];
+    // const imageFilePath = `https://raw.githubusercontent.com/Swanand-Wagh/CSS584-Assi1/main/src/constants/images/${i}.jpg`;
     const imageData = await processImageUsingColorCode(imageFilePath);
     if (imageData) {
       imagesData.push(imageData);
@@ -104,8 +108,8 @@ async function getIntensityDistanceMatix() {
   const imagesData = [];
   // Load image data
   for (let i = 1; i <= 100; i++) {
-    // const imageFilePath = `../constants/images/${i}.jpg`;
-    const imageFilePath = `https://raw.githubusercontent.com/Swanand-Wagh/CSS584-Assi1/main/src/constants/images/${i}.jpg`;
+    const imageFilePath = imageArray[i - 1];
+    // const imageFilePath = `https://raw.githubusercontent.com/Swanand-Wagh/CSS584-Assi1/main/src/constants/images/${i}.jpg`;
     const imageData = await processImageUsingIntensity(imageFilePath);
     if (imageData) {
       imagesData.push(imageData);
@@ -118,7 +122,10 @@ export const intensityDistances = await getIntensityDistanceMatix();
 export const colorCodeDistances = await getColorCodeDistanceMatix();
 
 export function getShortestDistancesIndexes(distances, imageIndex) {
-  const arrayObjects = distances[imageIndex].map((value, index) => ({ value, index }));
+  const arrayObjects = distances[imageIndex].map((value, index) => ({
+    value,
+    index,
+  }));
   arrayObjects.sort((a, b) => a.value - b.value);
   return arrayObjects.map((item) => item.index);
 }

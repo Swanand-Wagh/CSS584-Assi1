@@ -1,20 +1,61 @@
-import { GrPowerReset } from 'react-icons/gr';
-import { IoClose } from 'react-icons/io5';
-import { RiImageAddFill } from 'react-icons/ri';
+import { GrPowerReset } from "react-icons/gr";
+import { IoClose } from "react-icons/io5";
+import { RiImageAddFill } from "react-icons/ri";
+import {
+  intensityDistances,
+  colorCodeDistances,
+  getShortestDistancesIndexes,
+} from "../../methods/Main";
+import { imageArray } from "../../constants/ImageList";
 
-import { intensityDistances, colorCodeDistances, getShortestDistancesIndexes } from '../../methods/Main';
+export const ImageFilters = ({
+  currentImg,
+  setCurrentImage,
+  imagesList,
+  setImagesList,
+}) => {
+  const setNewList = (setState, _modifiedList) => {
+    const newList = [];
+    for (let i = 0; i < _modifiedList.length; ++i) {
+      newList.push(imageArray[_modifiedList[i]]);
+    }
 
-export const ImageFilters = ({ currentImg, setCurrentImage }) => {
+    setState(newList);
+  };
+
+  const filterMethod = (_currentImg, methodBy) => {
+    if (_currentImg === -1) {
+      return;
+    }
+
+    const distances =
+      methodBy === "intensity"
+        ? intensityDistances
+        : methodBy === "colorCode"
+        ? colorCodeDistances
+        : null;
+
+    const modifiedList =
+      distances === null
+        ? imageArray
+        : getShortestDistancesIndexes(distances, _currentImg);
+
+    setNewList(setImagesList, modifiedList);
+  };
+
   return (
     <div className="imageGallery__contentWraps imageSelectDisplay">
       <div className="imageGallery__imageSelectDisplay__selectedImage">
-        {currentImg && (
+        {currentImg !== -1 && (
           <div className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns">
-            <button className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns__resetBtn">
+            <button
+              onClick={() => setImagesList(imageArray)}
+              className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns__resetBtn"
+            >
               <GrPowerReset />
             </button>
             <button
-              onClick={() => setCurrentImage('')}
+              onClick={() => setCurrentImage(-1)}
               className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns__closeBtn"
             >
               <IoClose />
@@ -23,11 +64,11 @@ export const ImageFilters = ({ currentImg, setCurrentImage }) => {
         )}
 
         <div
-          style={{ background: currentImg ? 'transparent' : '#efedfc' }}
+          style={{ background: currentImg !== -1 ? "transparent" : "#efedfc" }}
           className="imageGallery__imageSelectDisplay__selectedImage__imageWrap"
         >
-          {currentImg ? (
-            <img src={currentImg} alt="" />
+          {currentImg !== -1 ? (
+            <img src={imagesList[currentImg]} alt="" />
           ) : (
             <div className="imageGallery__imageSelectDisplay__selectedImage__noImage">
               <span className="imageGallery__imageSelectDisplay__selectedImage__noImage__noImgIcon">
@@ -43,15 +84,15 @@ export const ImageFilters = ({ currentImg, setCurrentImage }) => {
 
       <div className="imageGallery__imageSelectDisplay__filterActionBtns">
         <button
-          disabled={!currentImg}
-          onClick={() => console.log(getShortestDistancesIndexes(intensityDistances, 2))}
+          disabled={currentImg == -1}
+          onClick={() => filterMethod(currentImg, "intensity")}
           className="imageGallery__imageSelectDisplay__imageActionBtns__intensityBtn"
         >
           Retrieve by Intensity Method
         </button>
         <button
-          disabled={!currentImg}
-          onClick={() => console.log(getShortestDistancesIndexes(colorCodeDistances, 2))}
+          disabled={currentImg == -1}
+          onClick={() => filterMethod(currentImg, "colorCode")}
           className="imageGallery__imageSelectDisplay__imageActionBtns__colorMethodBtn"
         >
           Retrieve by Color Code Method
