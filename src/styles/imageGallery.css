@@ -37,10 +37,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.7;
   border-radius: 5px;
   overflow: hidden;
   transition: opacity 0.2s ease;
+  position: relative;
+}
+
+.image__number {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: #806af6;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
 }
 
 .imageGalley__imageGridDisplay__imageGrid__gridItems:hover {

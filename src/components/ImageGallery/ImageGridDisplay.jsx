@@ -15,7 +15,8 @@ export const ImageGridDisplay = ({ currentImg, setCurrentImage, currentPage, set
                   currentImg === (currentPage - 1) * 20 + idx ? ' active' : ''
                 }`}
               >
-                <img src={item} alt={idx} />
+                <img src={item.image} alt={idx} />
+                <span className="image__number">{item.id}</span>
               </li>
             );
           })}

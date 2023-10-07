@@ -60,7 +60,7 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
           className="imageGallery__imageSelectDisplay__selectedImage__imageWrap"
         >
           {currentImg !== -1 ? (
-            <img src={imagesList[currentImg]} alt="" />
+            <img src={imagesList[currentImg].image} alt="" />
           ) : (
             <div className="imageGallery__imageSelectDisplay__selectedImage__noImage">
               <span className="imageGallery__imageSelectDisplay__selectedImage__noImage__noImgIcon">
