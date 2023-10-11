@@ -1,10 +1,11 @@
 import Jimp from 'jimp';
-import { imageArray } from '../constants/ImageList';
 
+// Method to calculate Intensity based on the formula I = 0.299R + 0.587G + 0.114B
 function calculateIntensity(red, green, blue) {
   return Math.floor(0.299 * red + 0.587 * green + 0.114 * blue);
 }
 
+// Method to convert RGB to 6-bit color code
 function convertTo6BitColorCode(r, g, b) {
   const r6Bit = (r >> 6) & 3;
   const g6Bit = (g >> 6) & 3;
@@ -12,6 +13,7 @@ function convertTo6BitColorCode(r, g, b) {
   return (r6Bit << 4) | (g6Bit << 2) | b6Bit;
 }
 
+// Method to create a color code histogram. Take the image pixel values & places them into the array of 64bins for each image based on 6-bit code.
 function createColorCodeHistogram(image) {
   const colorBins = new Array(64).fill(0);
 
@@ -27,6 +29,7 @@ function createColorCodeHistogram(image) {
   return colorBins;
 }
 
+// Method to create an Intensity Histogram. Take the image pixel values & places them into the array of 25bins for each image based on the bin ranges (H1(0-10)...)
 function createIntensityHistogram(image) {
   const intensityBins = new Array(25).fill(0);
 
@@ -36,6 +39,7 @@ function createIntensityHistogram(image) {
       image.bitmap.data[idx + 1],
       image.bitmap.data[idx + 2]
     );
+
     const binIndex = Math.min(24, Math.floor(intensity / 10));
     intensityBins[binIndex]++;
   });
@@ -43,6 +47,7 @@ function createIntensityHistogram(image) {
   return intensityBins;
 }
 
+// method to read the image & pass it for scanning to the createColorCodeHistogram() in-order to get pixel by pixel data & eventually generate the 64-bins histogram.
 async function processImageUsingColorCode(imageFilePath) {
   try {
     const image = await Jimp.read(imageFilePath);
@@ -55,6 +60,7 @@ async function processImageUsingColorCode(imageFilePath) {
   }
 }
 
+// method to read the image & pass it for scanning to the createIntensityHistogram() in-order to get pixel by pixel data & eventually generate the 25-bins histogram.
 async function processImageUsingIntensity(imageFilePath) {
   try {
     const image = await Jimp.read(imageFilePath);
@@ -67,6 +73,7 @@ async function processImageUsingIntensity(imageFilePath) {
   }
 }
 
+// method to calculate the manhattan-distance between two images.
 function calculateDistances(imagesData) {
   const distances = Array.from({ length: imagesData.length }, () => Array(imagesData.length).fill(0));
 
@@ -88,6 +95,7 @@ function calculateDistances(imagesData) {
   return distances;
 }
 
+// method to generate feature matrix for intensity
 async function getColorCodeDistanceMatrix(currentImgList) {
   const imagesData = [];
 
@@ -101,6 +109,7 @@ async function getColorCodeDistanceMatrix(currentImgList) {
   return calculateDistances(imagesData);
 }
 
+// method to generate feature matrix for intensity
 async function getIntensityDistanceMatrix(currentImgList) {
   const imagesData = [];
 
@@ -117,6 +126,7 @@ async function getIntensityDistanceMatrix(currentImgList) {
 export const intensityDistances = async (currentImgList) => await getIntensityDistanceMatrix(currentImgList);
 export const colorCodeDistances = async (currentImgList) => await getColorCodeDistanceMatrix(currentImgList);
 
+// sort the distances based on the shortest distances
 export function getShortestDistancesIndexes(distances, imageIndex) {
   const arrayObjects = distances[imageIndex].map((value, index) => ({
     value,
