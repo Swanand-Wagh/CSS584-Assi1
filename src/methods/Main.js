@@ -88,12 +88,11 @@ function calculateDistances(imagesData) {
   return distances;
 }
 
-async function getColorCodeDistanceMatix() {
+async function getColorCodeDistanceMatrix(currentImgList) {
   const imagesData = [];
-  // Load image data
+
   for (let i = 1; i <= 100; i++) {
-    const imageFilePath = imageArray[i - 1].image;
-    // const imageFilePath = `https://raw.githubusercontent.com/Swanand-Wagh/CSS584-Assi1/main/src/constants/images/${i}.jpg`;
+    const imageFilePath = currentImgList[i - 1].image;
     const imageData = await processImageUsingColorCode(imageFilePath);
     if (imageData) {
       imagesData.push(imageData);
@@ -102,12 +101,11 @@ async function getColorCodeDistanceMatix() {
   return calculateDistances(imagesData);
 }
 
-async function getIntensityDistanceMatix() {
+async function getIntensityDistanceMatrix(currentImgList) {
   const imagesData = [];
-  // Load image data
+
   for (let i = 1; i <= 100; i++) {
-    const imageFilePath = imageArray[i - 1].image;
-    // const imageFilePath = `https://raw.githubusercontent.com/Swanand-Wagh/CSS584-Assi1/main/src/constants/images/${i}.jpg`;
+    const imageFilePath = currentImgList[i - 1].image;
     const imageData = await processImageUsingIntensity(imageFilePath);
     if (imageData) {
       imagesData.push(imageData);
@@ -116,8 +114,8 @@ async function getIntensityDistanceMatix() {
   return calculateDistances(imagesData);
 }
 
-export const intensityDistances = async () => await getIntensityDistanceMatix();
-export const colorCodeDistances = async () => await getColorCodeDistanceMatix();
+export const intensityDistances = async (currentImgList) => await getIntensityDistanceMatrix(currentImgList);
+export const colorCodeDistances = async (currentImgList) => await getColorCodeDistanceMatrix(currentImgList);
 
 export function getShortestDistancesIndexes(distances, imageIndex) {
   const arrayObjects = distances[imageIndex].map((value, index) => ({

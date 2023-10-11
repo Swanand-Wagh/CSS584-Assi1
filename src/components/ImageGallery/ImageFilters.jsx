@@ -1,10 +1,13 @@
+import { useEffect, useState } from 'react';
 import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
 import { RiImageAddFill } from 'react-icons/ri';
 import { intensityDistances, colorCodeDistances, getShortestDistancesIndexes } from '../../methods/Main';
 import { imageArray } from '../../constants/ImageList';
 
-export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImagesList }) => {
+export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImagesList, setCurrentPage }) => {
+  const [currentImgURL, setCurrentImageURL] = useState('');
+
   const setNewList = (setState, _modifiedList) => {
     const newList = [];
     for (let i = 0; i < _modifiedList.length; ++i) {
@@ -19,21 +22,31 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
       return;
     }
 
-    setImagesList(null);
     setCurrentImage(-1);
 
     const distances =
       methodBy === 'intensity'
-        ? await intensityDistances()
+        ? await intensityDistances(imagesList)
         : methodBy === 'colorCode'
-        ? await colorCodeDistances()
+        ? await colorCodeDistances(imagesList)
         : null;
 
-    const modifiedList = distances === null ? imageArray : getShortestDistancesIndexes(distances, _currentImg);
+    const modifiedList = distances === null ? imageArray : getShortestDistancesIndexes(distances, _currentImg - 1);
 
     setNewList(setImagesList, modifiedList);
     setCurrentImage(_currentImg);
+    setCurrentPage(1);
   };
+
+  useEffect(() => {
+    if (!imagesList) {
+      setCurrentImageURL('');
+      return;
+    }
+
+    const selectedImg = imagesList.find((img) => img.id === currentImg);
+    setCurrentImageURL(!selectedImg ? '' : selectedImg.image);
+  }, [currentImg]);
 
   return (
     <div className="imageGallery__contentWraps imageSelectDisplay">
@@ -41,13 +54,17 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
         {currentImg !== -1 && (
           <div className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns">
             <button
-              onClick={() => setImagesList(imageArray)}
+              onClick={() => {
+                setImagesList(imageArray);
+                setCurrentPage(1);
+                setCurrentImage(imageArray[0].id);
+              }}
               className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns__resetBtn"
             >
               <GrPowerReset />
             </button>
             <button
-              onClick={() => setCurrentImage(-1)}
+              onClick={() => setCurrentImageURL('')}
               className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns__closeBtn"
             >
               <IoClose />
@@ -56,11 +73,11 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
         )}
 
         <div
-          style={{ background: currentImg !== -1 ? 'transparent' : '#efedfc' }}
+          style={{ background: currentImg !== -1 && currentImgURL ? 'transparent' : '#efedfc' }}
           className="imageGallery__imageSelectDisplay__selectedImage__imageWrap"
         >
-          {currentImg !== -1 ? (
-            <img src={imagesList[currentImg].image} alt="" />
+          {currentImg !== -1 && currentImgURL ? (
+            <img src={currentImgURL} alt="" />
           ) : (
             <div className="imageGallery__imageSelectDisplay__selectedImage__noImage">
               <span className="imageGallery__imageSelectDisplay__selectedImage__noImage__noImgIcon">
