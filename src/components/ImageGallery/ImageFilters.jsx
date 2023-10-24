@@ -1,11 +1,21 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
 import { RiImageAddFill } from 'react-icons/ri';
-import { intensityDistances, colorCodeDistances, getShortestDistancesIndexes } from '../../methods/Main';
+import { colorCodeDistances, intensityDistances } from '../../methods/Assignment_1';
+import { getShortestDistancesIndexes } from '../../methods/Main';
 import { imageArray } from '../../constants/ImageList';
 
-export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImagesList, setCurrentPage }) => {
+export const ImageFilters = ({
+  currentImg,
+  setCurrentImage,
+  imagesList,
+  setImagesList,
+  setCurrentPage,
+  setRelevantImages,
+  isRelevance,
+  setIsRelevance,
+}) => {
   const [currentImgURL, setCurrentImageURL] = useState('');
 
   const setNewList = (setState, _modifiedList) => {
@@ -26,9 +36,9 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
 
     const distances =
       methodBy === 'intensity'
-        ? await intensityDistances(imagesList)
+        ? await intensityDistances()
         : methodBy === 'colorCode'
-        ? await colorCodeDistances(imagesList)
+        ? await colorCodeDistances()
         : null;
 
     const modifiedList = distances === null ? imageArray : getShortestDistancesIndexes(distances, _currentImg - 1);
@@ -36,6 +46,10 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
     setNewList(setImagesList, modifiedList);
     setCurrentImage(_currentImg);
     setCurrentPage(1);
+  };
+
+  const enableRelevanceFeedback = (event) => {
+    setIsRelevance(event.target.checked);
   };
 
   useEffect(() => {
@@ -58,6 +72,8 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
                 setImagesList(imageArray);
                 setCurrentPage(1);
                 setCurrentImage(imageArray[0].id);
+                setIsRelevance(false);
+                setRelevantImages([]);
               }}
               className="imageGallery__imageSelectDisplay__selectedImage__imageActionBtns__resetBtn"
             >
@@ -77,7 +93,10 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
           className="imageGallery__imageSelectDisplay__selectedImage__imageWrap"
         >
           {currentImg !== -1 && currentImgURL ? (
-            <img src={currentImgURL} alt="" />
+            <React.Fragment>
+              <img src={currentImgURL} alt="" />
+              <span className="imageGallery__imageSelectDisplay__selectedImage__imageWrap__number">{currentImg}</span>
+            </React.Fragment>
           ) : (
             <div className="imageGallery__imageSelectDisplay__selectedImage__noImage">
               <span className="imageGallery__imageSelectDisplay__selectedImage__noImage__noImgIcon">
@@ -90,21 +109,41 @@ export const ImageFilters = ({ currentImg, setCurrentImage, imagesList, setImage
           )}
         </div>
       </div>
-
+      <div className="imageGallery__imageSelectDisplay__filterActionText">Retrieve By</div>
+      <div className="imageGallery__imageSelectDisplay__filterActionRelevance">
+        <input
+          type="checkbox"
+          name="relevance"
+          id="relevance"
+          checked={isRelevance}
+          onChange={(event) => enableRelevanceFeedback(event)}
+        />
+        <label htmlFor="relevance">Relevance</label>
+      </div>
       <div className="imageGallery__imageSelectDisplay__filterActionBtns">
         <button
-          disabled={currentImg === -1 || imagesList === null}
+          disabled={currentImg === -1 || imagesList === null || isRelevance}
           onClick={() => filterMethod(currentImg, 'intensity')}
-          className="imageGallery__imageSelectDisplay__imageActionBtns__intensityBtn"
         >
-          Retrieve by Intensity Method
+          Intensity Method
         </button>
         <button
-          disabled={currentImg === -1 || imagesList === null}
+          disabled={currentImg === -1 || imagesList === null || isRelevance}
           onClick={() => filterMethod(currentImg, 'colorCode')}
-          className="imageGallery__imageSelectDisplay__imageActionBtns__colorMethodBtn"
         >
-          Retrieve by Color Code Method
+          Color Code Method
+        </button>
+        <button disabled={true || isRelevance}>Energy Method</button>
+        <button disabled={true || isRelevance}>Entropy Method</button>
+        <button disabled={true || isRelevance}>Contrast Method</button>
+        <button disabled={true || isRelevance} className="smallText">
+          Color Code & Texture
+        </button>
+        <button disabled={currentImg === -1 || imagesList === null} className="fullRow">
+          Color Code & Intensity
+        </button>
+        <button disabled={true || isRelevance} className="fullRow">
+          Color Code, Intensity & Texture
         </button>
       </div>
     </div>

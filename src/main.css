@@ -40,6 +40,7 @@ body {
   background: #ffffff;
   -ms-overflow-style: none;
   scrollbar-width: 0;
+  accent-color: #8c80f6;
 }
 
 body::-webkit-scrollbar {
