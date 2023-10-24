@@ -1,5 +1,5 @@
-import { createColorCodeHistogram, createIntensityHistogram, getShortestDistancesIndexesFromArray } from './Main';
 import Jimp from 'jimp';
+import { createColorCodeHistogram, createIntensityHistogram, getShortestDistancesIndexesFromArray } from './Main';
 
 function normalizeFeatureVector(featureVector, average, standardDeviation) {
   return featureVector.map((value, index) => {

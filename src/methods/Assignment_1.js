@@ -1,6 +1,6 @@
 import Jimp from 'jimp';
-import { createColorCodeHistogram, createIntensityHistogram } from './Main';
 import { imageArray } from '../constants/ImageList';
+import { createColorCodeHistogram, createIntensityHistogram } from './Main';
 
 async function processImageUsingColorCode(imageFilePath) {
   try {
