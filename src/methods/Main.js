@@ -1,6 +1,3 @@
-import { runAssignment2 } from './Assignment_2';
-import Jimp from 'jimp';
-
 function calculateIntensity(red, green, blue) {
   return Math.floor(0.299 * red + 0.587 * green + 0.114 * blue);
 }
@@ -54,6 +51,3 @@ export function getShortestDistancesIndexesFromArray(distances) {
   arrayObjects.sort((a, b) => a.value - b.value);
   return arrayObjects.map((item) => item.index);
 }
-
-// runAssignment1();
-// runAssignment2();

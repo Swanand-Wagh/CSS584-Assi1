@@ -59,19 +59,21 @@ export const Pagination = ({ currentPage, setCurrentPage }) => {
         <MdNavigateBefore />
       </button>
 
-      {pageArray.slice(paginationSlice.startIndex, paginationSlice.sliceItemIndex).map((page, idx) => {
-        return (
-          <button
-            key={idx}
-            onClick={() => setCurrentPage(page)}
-            className={`imageGalley__imageGridDisplay__paginationWrap__paginationBtns currentPageBtn${
-              currentPage === page ? ' active' : ''
-            }`}
-          >
-            {page}
-          </button>
-        );
-      })}
+      {pageArray
+        .slice(paginationSlice.startIndex, paginationSlice.sliceItemIndex)
+        .map((page, idx) => {
+          return (
+            <button
+              key={idx}
+              onClick={() => setCurrentPage(page)}
+              className={`imageGalley__imageGridDisplay__paginationWrap__paginationBtns currentPageBtn${
+                currentPage === page ? ' active' : ''
+              }`}
+            >
+              {page}
+            </button>
+          );
+        })}
 
       <button
         disabled={currentPage === totalPages}

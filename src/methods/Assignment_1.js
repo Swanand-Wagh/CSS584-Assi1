@@ -27,7 +27,9 @@ async function processImageUsingIntensity(imageFilePath) {
 }
 
 function calculateDistances(imagesData) {
-  const distances = Array.from({ length: imagesData.length }, () => Array(imagesData.length).fill(0));
+  const distances = Array.from({ length: imagesData.length }, () =>
+    Array(imagesData.length).fill(0)
+  );
 
   for (let i = 0; i < imagesData.length; i++) {
     for (let j = i + 1; j < imagesData.length; j++) {

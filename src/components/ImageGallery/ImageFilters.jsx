@@ -3,7 +3,10 @@ import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
 import { RiImageAddFill } from 'react-icons/ri';
 import { colorCodeDistances, intensityDistances } from '../../methods/Assignment_1';
-import { getShortestDistancesIndexes, getShortestDistancesIndexesFromArray } from '../../methods/Main';
+import {
+  getShortestDistancesIndexes,
+  getShortestDistancesIndexesFromArray,
+} from '../../methods/Main';
 import { imageArray } from '../../constants/ImageList';
 import {
   buildFeatureMatrix,
@@ -51,7 +54,8 @@ export const ImageFilters = ({
         ? await colorCodeDistances()
         : null;
 
-    const modifiedList = distances === null ? imageArray : getShortestDistancesIndexes(distances, _currentImg - 1);
+    const modifiedList =
+      distances === null ? imageArray : getShortestDistancesIndexes(distances, _currentImg - 1);
 
     setNewList(setImagesList, modifiedList);
     setCurrentImage(_currentImg);
@@ -140,7 +144,9 @@ export const ImageFilters = ({
           {currentImg !== -1 && currentImgURL ? (
             <React.Fragment>
               <img src={currentImgURL} alt="" />
-              <span className="imageGallery__imageSelectDisplay__selectedImage__imageWrap__number">{currentImg}</span>
+              <span className="imageGallery__imageSelectDisplay__selectedImage__imageWrap__number">
+                {currentImg}
+              </span>
             </React.Fragment>
           ) : (
             <div className="imageGallery__imageSelectDisplay__selectedImage__noImage">

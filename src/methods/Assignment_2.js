@@ -1,6 +1,10 @@
-import { imageArray } from '../constants/ImageList';
-import { createColorCodeHistogram, createIntensityHistogram, getShortestDistancesIndexesFromArray } from './Main';
 import Jimp from 'jimp';
+import { imageArray } from '../constants/ImageList';
+import {
+  createColorCodeHistogram,
+  createIntensityHistogram,
+  getShortestDistancesIndexesFromArray,
+} from './Main';
 
 function normalizeFeatureVector(featureVector, average, standardDeviation) {
   return featureVector.map((value, index) => {
@@ -46,11 +50,15 @@ export async function buildFeatureMatrix() {
   }
 
   // Normalize feature matrix
-  return featureMatrix.map((featureVector) => normalizeFeatureVector(featureVector, average, standardDeviation));
+  return featureMatrix.map((featureVector) =>
+    normalizeFeatureVector(featureVector, average, standardDeviation)
+  );
 }
 
 function calculateDistanceMatrix(dataMatrix) {
-  const distances = Array.from({ length: dataMatrix.length }, () => Array(dataMatrix.length).fill(0));
+  const distances = Array.from({ length: dataMatrix.length }, () =>
+    Array(dataMatrix.length).fill(0)
+  );
   // for each image, calculating distance to all other images by summing the difference of each feature and dividing by the number of features
   for (let i = 0; i < dataMatrix.length; i++) {
     for (let j = i + 1; j < dataMatrix.length; j++) {
@@ -127,7 +135,9 @@ export function iteration(normalizedMatrix, distances, selectedImages, queryImag
   for (let imageIndex = 0; imageIndex < normalizedWeights.length; imageIndex++) {
     let sum = 0;
     for (let k = 0; k < normalizedMatrix[0].length; k++) {
-      sum += normalizedWeights[k] * Math.abs(normalizedMatrix[queryImage][k] - normalizedMatrix[imageIndex][k]);
+      sum +=
+        normalizedWeights[k] *
+        Math.abs(normalizedMatrix[queryImage][k] - normalizedMatrix[imageIndex][k]);
     }
     distances[imageIndex] = sum;
   }
@@ -139,23 +149,4 @@ export function rfRetrieval(distances) {
   // Make a copy of distances array
   let updatedDistances = Array.from(distances);
   return updatedDistances;
-}
-
-export async function runAssignment2() {
-  let normalizedMatrix = await buildFeatureMatrix();
-
-  // select query image
-  let queryImage = 10;
-  let distances = calculateDistanceWithQueryImage(normalizedMatrix, queryImage);
-
-  // Select query image and other rf images, query image is at first index
-  let updatedDistances = rfRetrieval(distances);
-
-  // Run another iteration on updated distances
-  let selectedImages = [queryImage];
-  selectedImages.push(2);
-  iteration(normalizedMatrix, updatedDistances, selectedImages, queryImage);
-
-  // Calculate final distances order
-  console.log(getShortestDistancesIndexesFromArray(updatedDistances, queryImage));
 }

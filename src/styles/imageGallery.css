@@ -1,6 +1,6 @@
 .imageGallery {
   background: #efedfc;
-  padding: 2.5rem 5rem;
+  padding: 1.5rem 5rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -18,7 +18,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 1rem;
+  gap: .55rem;
 }
 
 .imageGalley__imageGridDisplay__imageGrid::-webkit-scrollbar {
@@ -53,7 +53,7 @@
 }
 
 .imageGalley__imageGridDisplay__imageGrid__gridItems img {
-  width: 11rem;
+  width: 10rem;
   height: 7.33rem;
   object-fit: contain;
 }
@@ -67,7 +67,7 @@
   background-color: hsl(246, 87%, 73%, 0.35);
   animation: skeletonLoading 0.6s linear infinite alternate-reverse;
   opacity: 1;
-  width: 11rem;
+  width: 10rem;
   height: 7.33rem;
 }
 
@@ -84,13 +84,13 @@
 }
 .imageGalley__imageGridDisplay__imageGrid__gridItems__checkbox label {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 13px;
   margin-left: 0.25rem;
   letter-spacing: 0.01em;
 }
 
 .imageGalley__imageGridDisplay__paginationWrap {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   display: flex;
   align-items: center;
 }
