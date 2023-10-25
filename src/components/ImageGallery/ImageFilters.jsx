@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
 import { RiImageAddFill } from 'react-icons/ri';
 import { colorCodeDistances, intensityDistances } from '../../methods/Assignment_1';
-import { getShortestDistancesIndexes } from '../../methods/Main';
+import { getShortestDistancesIndexes, getShortestDistancesIndexesFromArray } from '../../methods/Main';
 import { imageArray } from '../../constants/ImageList';
+import {
+  buildFeatureMatrix,
+  calculateDistanceWithQueryImage,
+  iteration,
+  rfRetrieval,
+} from '../../methods/Assignment_2';
 
 export const ImageFilters = ({
   currentImg,
@@ -12,11 +18,15 @@ export const ImageFilters = ({
   imagesList,
   setImagesList,
   setCurrentPage,
+  relevantImages,
   setRelevantImages,
   isRelevance,
   setIsRelevance,
 }) => {
   const [currentImgURL, setCurrentImageURL] = useState('');
+  const [normalizedMatrix, setNormalizedMatrix] = useState();
+  const [updatedDistances, setUpdatedDistances] = useState();
+  const [firstCall, setFirstCall] = useState(true);
 
   const setNewList = (setState, _modifiedList) => {
     const newList = [];
@@ -52,7 +62,42 @@ export const ImageFilters = ({
     setIsRelevance(event.target.checked);
   };
 
+  const executeAssignment2 = (_currentImg) => {
+    if (_currentImg === -1) {
+      return;
+    }
+
+    setCurrentImage(-1);
+    let array;
+
+    if (firstCall || relevantImages.length === 0) {
+      console.log(normalizedMatrix);
+      let distances = calculateDistanceWithQueryImage(normalizedMatrix, _currentImg - 1);
+
+      // Select query image and other rf images, query image is at first index
+      array = rfRetrieval(distances);
+      setFirstCall(false);
+    } else {
+      array = iteration(normalizedMatrix, updatedDistances, relevantImages, _currentImg - 1);
+    }
+
+    setUpdatedDistances(array);
+    const modifiedList = getShortestDistancesIndexesFromArray(array, _currentImg - 1);
+
+    setNewList(setImagesList, modifiedList);
+    setCurrentImage(_currentImg);
+    setCurrentPage(1);
+  };
+
   useEffect(() => {
+    const getNormalizedMatrix = async () => {
+      let matrix = await buildFeatureMatrix();
+      console.log(matrix);
+      setNormalizedMatrix(matrix);
+    };
+
+    getNormalizedMatrix();
+
     if (!imagesList) {
       setCurrentImageURL('');
       return;
@@ -60,7 +105,7 @@ export const ImageFilters = ({
 
     const selectedImg = imagesList.find((img) => img.id === currentImg);
     setCurrentImageURL(!selectedImg ? '' : selectedImg.image);
-  }, [currentImg]);
+  }, [currentImg, normalizedMatrix]);
 
   return (
     <div className="imageGallery__contentWraps imageSelectDisplay">
@@ -139,7 +184,11 @@ export const ImageFilters = ({
         <button disabled={true || isRelevance} className="smallText">
           Color Code & Texture
         </button>
-        <button disabled={currentImg === -1 || imagesList === null} className="fullRow">
+        <button
+          disabled={currentImg === -1 || imagesList === null || !normalizedMatrix}
+          onClick={() => executeAssignment2(currentImg)}
+          className="fullRow"
+        >
           Color Code & Intensity
         </button>
         <button disabled={true || isRelevance} className="fullRow">

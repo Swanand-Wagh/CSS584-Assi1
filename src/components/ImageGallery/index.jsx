@@ -31,6 +31,7 @@ export const ImageGallery = () => {
           setImagesList={setImagesList}
           setCurrentPage={setCurrentPage}
           setRelevantImages={setRelevantImages}
+          relevantImages={relevantImages}
           setIsRelevance={setIsRelevance}
           isRelevance={isRelevance}
         />

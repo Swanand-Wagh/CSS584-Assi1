@@ -1,5 +1,6 @@
-import Jimp from 'jimp';
+import { imageArray } from '../constants/ImageList';
 import { createColorCodeHistogram, createIntensityHistogram, getShortestDistancesIndexesFromArray } from './Main';
+import Jimp from 'jimp';
 
 function normalizeFeatureVector(featureVector, average, standardDeviation) {
   return featureVector.map((value, index) => {
@@ -11,13 +12,13 @@ function normalizeFeatureVector(featureVector, average, standardDeviation) {
   });
 }
 
-async function buildFeatureMatrix() {
+export async function buildFeatureMatrix() {
   const featureMatrix = [];
   const average = [];
   const standardDeviation = [];
 
-  for (let i = 1; i <= 100; i++) {
-    const imageFilePath = `./images/${i}.jpg`;
+  for (let i = 0; i < 100; i++) {
+    const imageFilePath = imageArray[i].image;
     const image = await Jimp.read(imageFilePath);
     const colorBins = createColorCodeHistogram(image);
     const intensityBins = createIntensityHistogram(image);
@@ -64,7 +65,7 @@ function calculateDistanceMatrix(dataMatrix) {
   return distances;
 }
 
-function calculateDistanceWithQueryImage(dataMatrix, queryImageIndex) {
+export function calculateDistanceWithQueryImage(dataMatrix, queryImageIndex) {
   const distances = Array.from({ length: dataMatrix.length }).fill(0);
 
   // queryImage, calculating distance to all other images by summing the difference of each feature and dividing by the number of features
@@ -79,7 +80,7 @@ function calculateDistanceWithQueryImage(dataMatrix, queryImageIndex) {
   return distances;
 }
 
-function iteration(normalizedMatrix, distances, selectedImages, queryImage) {
+export function iteration(normalizedMatrix, distances, selectedImages, queryImage) {
   let average = [];
   let standardDeviation = [];
 
@@ -123,13 +124,15 @@ function iteration(normalizedMatrix, distances, selectedImages, queryImage) {
   let normalizedWeights = updatedWeight.map((value) => value / sum);
 
   // Update distance of query image with new distances of selected images
-  for (let imageIndex = 0; imageIndex < dataMatrix.length; imageIndex++) {
+  for (let imageIndex = 0; imageIndex < normalizedWeights.length; imageIndex++) {
     let sum = 0;
     for (let k = 0; k < normalizedMatrix[0].length; k++) {
       sum += normalizedWeights[k] * Math.abs(normalizedMatrix[queryImage][k] - normalizedMatrix[imageIndex][k]);
     }
     distances[imageIndex] = sum;
   }
+
+  return distances;
 }
 
 export function rfRetrieval(distances) {
