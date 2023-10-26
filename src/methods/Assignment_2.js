@@ -1,10 +1,6 @@
 import Jimp from 'jimp';
 import { imageArray } from '../constants/ImageList';
-import {
-  createColorCodeHistogram,
-  createIntensityHistogram,
-  getShortestDistancesIndexesFromArray,
-} from './Main';
+import { createColorCodeHistogram, createIntensityHistogram } from './Main';
 
 function normalizeFeatureVector(featureVector, average, standardDeviation) {
   return featureVector.map((value, index) => {
@@ -16,6 +12,7 @@ function normalizeFeatureVector(featureVector, average, standardDeviation) {
   });
 }
 
+// Feature Matrix = Intensity Matrix Joined with Color Matrix
 export async function buildFeatureMatrix() {
   const featureMatrix = [];
   const average = [];
@@ -32,7 +29,7 @@ export async function buildFeatureMatrix() {
     featureMatrix.push(featureVector);
   }
 
-  // for each feature, calculate average and standard deviation across all images
+  // for each feature, calculate average across all images
   for (let featureIndex = 0; featureIndex < featureMatrix[0].length; featureIndex++) {
     let sum = 0;
     for (let imageIndex = 0; imageIndex < featureMatrix.length; imageIndex++) {
@@ -41,6 +38,7 @@ export async function buildFeatureMatrix() {
     average.push(sum / featureMatrix.length);
   }
 
+  // Calculate SD across all images
   for (let featureIndex = 0; featureIndex < featureMatrix[0].length; featureIndex++) {
     let sum = 0;
     for (let imageIndex = 0; imageIndex < featureMatrix.length; imageIndex++) {
@@ -53,24 +51,6 @@ export async function buildFeatureMatrix() {
   return featureMatrix.map((featureVector) =>
     normalizeFeatureVector(featureVector, average, standardDeviation)
   );
-}
-
-function calculateDistanceMatrix(dataMatrix) {
-  const distances = Array.from({ length: dataMatrix.length }, () =>
-    Array(dataMatrix.length).fill(0)
-  );
-  // for each image, calculating distance to all other images by summing the difference of each feature and dividing by the number of features
-  for (let i = 0; i < dataMatrix.length; i++) {
-    for (let j = i + 1; j < dataMatrix.length; j++) {
-      let sum = 0;
-      for (let k = 0; k < dataMatrix[i].length; k++) {
-        sum += Math.abs(dataMatrix[i][k] - dataMatrix[j][k]);
-      }
-      distances[i][j] = sum / dataMatrix[i].length;
-      distances[j][i] = sum / dataMatrix[i].length;
-    }
-  }
-  return distances;
 }
 
 export function calculateDistanceWithQueryImage(dataMatrix, queryImageIndex) {
@@ -110,20 +90,28 @@ export function iteration(normalizedMatrix, distances, selectedImages, queryImag
   }
 
   // Special Cases
-  // If standard deviation is zero, then weight is non zero we will take min non zero value and multiply it by 0.5
+  // If SD is zero, then weight is non zero we will take min non zero value & multiply it by 0.5
   let minNonZeroSD = Math.min(...standardDeviation.filter((value) => value != 0));
   let zeroValue = minNonZeroSD * 0.5;
 
   // Update weights based on cases
-  let updatedWeight = standardDeviation.map((value, index) => {
+  let updatedSD = standardDeviation.map((value, index) => {
     if (value) {
-      return 1 / value;
+      return value;
     } else {
       if (average[index]) {
         return zeroValue;
       } else {
         return 0;
       }
+    }
+  });
+
+  let updatedWeight = updatedSD.map((value, index) => {
+    if (value) {
+      return 1 / value;
+    } else {
+      return 0;
     }
   });
 
