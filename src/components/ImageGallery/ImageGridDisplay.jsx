@@ -42,8 +42,8 @@ export const ImageGridDisplay = ({
                       type="checkbox"
                       name="relevance"
                       id={item.id}
-                      checked={relevantImages.includes(item.id)}
-                      onChange={(event) => updateRelevantList(event, item.id)}
+                      checked={relevantImages.includes(item.id - 1)}
+                      onChange={(event) => updateRelevantList(event, item.id - 1)}
                     />
                     <label htmlFor={item.id}>Relevant</label>
                   </div>
