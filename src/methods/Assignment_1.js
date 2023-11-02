@@ -2,6 +2,7 @@ import Jimp from 'jimp';
 import { createColorCodeHistogram, createIntensityHistogram } from './Main';
 import { imageArray } from '../constants/ImageList';
 
+// get image data for color code histogram
 async function processImageUsingColorCode(imageFilePath) {
   try {
     const image = await Jimp.read(imageFilePath);
@@ -14,6 +15,7 @@ async function processImageUsingColorCode(imageFilePath) {
   }
 }
 
+// get image data for intensity histogram
 async function processImageUsingIntensity(imageFilePath) {
   try {
     const image = await Jimp.read(imageFilePath);
@@ -26,6 +28,7 @@ async function processImageUsingIntensity(imageFilePath) {
   }
 }
 
+// get manhattan distances
 function calculateDistances(imagesData) {
   const distances = Array.from({ length: imagesData.length }, () =>
     Array(imagesData.length).fill(0)
@@ -49,6 +52,7 @@ function calculateDistances(imagesData) {
   return distances;
 }
 
+// get color code matrix
 async function getColorCodeDistanceMatrix() {
   const imagesData = [];
   // Load image data
@@ -62,6 +66,7 @@ async function getColorCodeDistanceMatrix() {
   return calculateDistances(imagesData);
 }
 
+// get intensity value matrix
 async function getIntensityDistanceMatrix() {
   const imagesData = [];
   // Load image data

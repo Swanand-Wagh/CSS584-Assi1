@@ -75,7 +75,6 @@ export const ImageFilters = ({
     let array;
 
     if (firstCall || relevantImages.length === 0) {
-      console.log(normalizedMatrix);
       let distances = calculateDistanceWithQueryImage(normalizedMatrix, _currentImg - 1);
 
       // Select query image and other rf images, query image is at first index
@@ -96,7 +95,6 @@ export const ImageFilters = ({
   useEffect(() => {
     const getNormalizedMatrix = async () => {
       let matrix = await buildFeatureMatrix();
-      console.log(matrix);
       setNormalizedMatrix(matrix);
     };
 

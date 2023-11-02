@@ -89,6 +89,8 @@ export function iteration(normalizedMatrix, distances, selectedImages, queryImag
     standardDeviation.push(Math.sqrt(sum / (selectedImages.length - 1)));
   }
 
+  console.log(average, standardDeviation);
+
   // Special Cases
   // If SD is zero, then weight is non zero we will take min non zero value & multiply it by 0.5
   let minNonZeroSD = Math.min(...standardDeviation.filter((value) => value != 0));
