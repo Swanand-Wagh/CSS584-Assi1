@@ -182,21 +182,13 @@ export const ImageFilters = ({
         >
           Color Code Method
         </button>
-        <button disabled={true || isRelevance}>Energy Method</button>
-        <button disabled={true || isRelevance}>Entropy Method</button>
-        <button disabled={true || isRelevance}>Contrast Method</button>
-        <button disabled={true || isRelevance} className="smallText">
-          Color Code & Texture
-        </button>
+
         <button
           disabled={currentImg === -1 || imagesList === null || !normalizedMatrix}
           onClick={() => executeAssignment2(currentImg)}
           className="fullRow"
         >
           Color Code & Intensity
-        </button>
-        <button disabled={true || isRelevance} className="fullRow">
-          Color Code, Intensity & Texture
         </button>
       </div>
     </div>
